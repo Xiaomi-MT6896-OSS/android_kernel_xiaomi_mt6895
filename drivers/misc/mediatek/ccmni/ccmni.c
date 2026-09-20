@@ -103,15 +103,17 @@ static void unregister_tcp_pacing_sysctl(void)
 	unregister_sysctl_table(sysctl_header);
 }
 
+#if IS_ENABLED(CONFIG_MTK_NET_RPS)
 void set_ccmni_rps(unsigned long value)
 {
 	int i = 0;
 	struct ccmni_ctl_block *ctlb = ccmni_ctl_blk[0];
 
 	for (i = 0; i < ctlb->ccci_ops->ccmni_num; i++)
-		;
+		set_rps_map(ctlb->ccmni_inst[i]->dev->_rx, value);
 }
 EXPORT_SYMBOL(set_ccmni_rps);
+#endif
 
 
 void ccmni_set_cur_speed(u64 cur_dl_speed)
@@ -464,7 +466,9 @@ static u16 ccmni_select_queue(struct net_device *dev, struct sk_buff *skb,
 		return CCMNI_TXQ_NORMAL;
 }
 
+#if IS_ENABLED(CONFIG_MTK_NET_RPS)
 static int s_call_times;
+#endif
 
 static int ccmni_open(struct net_device *dev)
 {
@@ -516,9 +520,11 @@ static int ccmni_open(struct net_device *dev)
 		ccmni_ctl->ccci_ops->md_ability,
 		dev->features, gro_flush_timer, ccmni->flt_cnt);
 
+#if IS_ENABLED(CONFIG_MTK_NET_RPS)
 	if (s_call_times == 0)
 		set_ccmni_rps(0x70);
 	s_call_times++;
+#endif
 
 	return 0;
 }
