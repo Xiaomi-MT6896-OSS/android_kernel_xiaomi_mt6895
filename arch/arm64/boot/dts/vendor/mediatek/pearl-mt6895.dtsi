@@ -76,11 +76,11 @@ this file is only for attribution of pearl
 &charger {
 		max_charger_voltage = <12000000>;
 		fv = <4445>;
-		fv_ffc = <4480>;
-		fv_ffc_large_cycle = <4460>;
-		iterm = <200>;
-		iterm_ffc = <800>;
-		iterm_ffc_warm = <900>;
+		fv_ffc = <4445>;
+		fv_ffc_large_cycle = <4445>;
+		iterm = <250>;
+		iterm_ffc = <250>;
+		iterm_ffc_warm = <250>;
 		usb_charger_current = <500000>;
 		ac_charger_current = <1500000>;
 		ac_charger_input_current = <1500000>;
@@ -91,14 +91,14 @@ this file is only for attribution of pearl
 		ffc_medium_tbat = <350>;
 		ffc_high_soc = <95>;
 		step_fallback_hyst = <25>;
-		step_forward_hyst = <5>;
+		step_forward_hyst = <0>;
 		jeita_fallback_hyst = <15>;
 		jeita_forward_hyst = <6>;
 		pearl_product;
 		mt6368_moscon1_control;
-		jeita_fcc_cfg = <(-100)	0	4200	1000	747
-				1	50	4200	2390	2390
-				51	100	4200	3386	3386
+		jeita_fcc_cfg = <(-100)	0	4193	780	727
+				1	50	4200	1892	1892
+				51	100	4200	2689	2689
 				101	150	4200	5826	5826
 				151	474	4200    12400   12400
 				475	600	4200	2490	2490>;
@@ -106,20 +106,32 @@ this file is only for attribution of pearl
 				1	50	4450
 				51	100	4450
 				101	150	4450
-				151	474	4480
+				151	474	4450
 				475	600	4100>;
-		step_chg_cfg_low_cycle = <3000	3595	12310
-					3596	4090	12310
-					4091	4190	12310
-					4191	4290	8875
-					4291	4390	7380
-					4391	4480	5786>;
-		step_chg_cfg_high_cycle = <3000	3595	12310
-					3596	3850	12310
-					3851	4180	12310
-					4181	4280	8575
-					4281	4380	7180
-					4381	4480	5486>;
+		step_chg_cfg_low_cycle = <3000	3593	12310
+					3594	4083	12310
+					4084	4183	12310
+					4184	4283	8875
+					4284	4383	7380
+					4384	4450	5786>;
+		step_chg_cfg_middle_cycle = <3000	3593	9700 
+					3594	4073	9700 
+					4074	4133	9700 
+					4134	4233	8875 
+					4234	4353	7380 
+					4354	4420	5786>;
+		step_chg_cfg_high_cycle = <3000	3593	9700
+					3594	4073	9700
+					4074	4133	9700
+					4134	4233	8875
+					4234	4333	7380
+					4334	4400	5786>;
+		step_chg_cfg_critical_cycle = <3000	3593	9700 
+					3594	4073	9700 
+					4074	4133	9700 
+					4134	4233	8875 
+					4234	4283	7380 
+					4284	4350	5786>;
 		thermal_limit_dcp = <1800 1800 1800 1800 1800 1800 1800 1800 1800 1800 1800 1800 1700 1600 1400 1200>;
 		thermal_limit_qc2 = <2500 2500 2500 2500 2500 2500 2500 2500 2500 2500 2500 2000 1500 1500 1000 500>;
 		thermal_limit_qc3_18w = <2500 2500 2500 2500 2500 2500 2400 2300 2200 2100 1500 1000 800 700 600 500>;
@@ -152,9 +164,9 @@ this file is only for attribution of pearl
 &pd_cp_manager {
 		compatible = "pd_cp_manager";
 		fv = <4450>;
-		fv_ffc = <4475>;
-		fv_ffc_large_cycle = <4455>;
-		max_fcc = <12400>;
+		fv_ffc = <4445>;
+		fv_ffc_large_cycle = <4445>;
+		max_fcc = <12310>;
 		max_vbus = <12000>;
 		max_ibus = <6200>;
 		fcc_low_hyst = <100>;
@@ -162,11 +174,11 @@ this file is only for attribution of pearl
 		low_tbat = <100>;
 		high_tbat = <480>;
 		high_vbat = <4400>;
-		high_soc = <95>;
+		high_soc = <88>;
 		low_fcc = <2000>;
 		cv_vbat = <4440>;
-		cv_vbat_ffc = <4470>;
-		cv_vbat_ffc_large_cycle = <4450>;
+		cv_vbat_ffc = <4440>;
+		cv_vbat_ffc_large_cycle = <4440>;
 		cv_ibat = <2000>;
 		cv_ibat_bypass = <1300>;
 		vbus_low_gap_div = <400>;
