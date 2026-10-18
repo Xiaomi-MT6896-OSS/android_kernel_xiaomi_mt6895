@@ -15,9 +15,13 @@ ccflags-y += -I$(srctree)/drivers/misc/mediatek/audio_ipi/include
 ccflags-y += -I$(srctree)/drivers/misc/mediatek/sensor/2.0/core
 endif
 
-ifeq ($(CONFIG_MIUS_IIO), m)
-ccflags-y += -DCFG_MTK_MIUS
-endif
+# The elliptic driver must keep its IPI_IN_ELLIPTIC_ULTRA_0 receive path:
+# gating it on CONFIG_MIUS_IIO (as the vendor tree does) silently kills the
+# ultrasound data flow, while us_prox_iio.ko itself is still required by the
+# audio HAL. Keep both modules fully functional instead.
+# ifeq ($(CONFIG_MIUS_IIO), m)
+# ccflags-y += -DCFG_MTK_MIUS
+# endif
 
 #KBUILD_EXTRA_SYMBOLS += $(srctree)/drivers/misc/mediatek/sensor/Module.symvers
 
